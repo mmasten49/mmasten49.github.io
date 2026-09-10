@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matthew Masten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0d0e12;
+    --ink-2:#16181f;
+    --chalk:#f5f3ec;
+    --chalk-dim:#a9a69c;
+    --line:rgba(245,243,236,0.10);
+    --line-strong:rgba(245,243,236,0.20);
+
+    --scarlet:#c8102e;
+    --wood:#a3673a;
+
+    /* org palettes, verified against each org's own brand colors */
+    --reds:#c6011f;
+    --alloy:#f77000;
+    --xu:#0099cc;
+    --xu-navy:#0c2340;
+
+    --accent:var(--scarlet);
+    --accent-bg:var(--scarlet);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+    .marquee-track{animation:none !important; transform:none !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--chalk);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--chalk);}
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{content:""; width:22px; height:2px; background:var(--accent); display:inline-block;}
+
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:13px 26px;
+    border-radius:999px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    text-decoration:none;
+    transition:transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    white-space:nowrap;
+  }
+  .btn-filled{background:var(--accent); color:#0d0e12; border:1px solid var(--accent); font-weight:600;}
+  .btn-filled:hover{transform:translateY(-2px); filter:brightness(1.08);}
+  .btn-outline{background:transparent; color:var(--chalk); border:1px solid var(--line-strong);}
+  .btn-outline:hover{border-color:var(--chalk); transform:translateY(-2px);}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(13,14,18,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:16px; padding-bottom:16px; gap:20px;}
+  .nav-id{display:flex; align-items:center; gap:12px; text-decoration:none;}
+  .nav-badge{
+    width:36px; height:36px; border-radius:9px;
+    background:linear-gradient(135deg, var(--xu-navy) 0%, var(--reds) 55%, var(--alloy) 100%);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Anton',sans-serif; font-size:14px; color:#fff; letter-spacing:0.02em;
+    flex-shrink:0;
+  }
+  .nav-name{font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--chalk);}
+  .nav-links{display:flex; align-items:center; gap:28px; list-style:none; margin:0; padding:0;}
+  .nav-links a{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--chalk-dim); text-decoration:none; transition:color 0.15s ease;
+  }
+  .nav-links a:hover{color:var(--chalk);}
+  .nav-right{display:flex; align-items:center; gap:26px;}
+  @media (max-width:760px){ .nav-links{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{padding:76px 0 0; border-bottom:1px solid var(--line);}
+  .hero-grid{
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;
+    padding-bottom:64px;
+  }
+  @media (max-width:860px){ .hero-grid{grid-template-columns:1fr; gap:44px;} }
+
+  .hero h1{
+    font-family:'Anton',sans-serif; font-weight:400; text-transform:uppercase;
+    font-size:clamp(44px,7vw,80px); line-height:0.94; letter-spacing:0.01em;
+    margin:0 0 22px;
+    opacity:0; animation:riseIn 0.7s ease-out 0.1s forwards;
+  }
+  .hero h1 .grad{
+    background:linear-gradient(90deg, var(--reds), var(--alloy));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero .tagline{
+    font-family:'IBM Plex Mono',monospace; font-size:clamp(13px,1.5vw,15px);
+    letter-spacing:0.06em; text-transform:uppercase; color:var(--chalk-dim);
+    margin:0 0 22px;
+    opacity:0; animation:riseIn 0.7s ease-out 0.26s forwards;
+  }
+  .hero p.desc{
+    max-width:480px; font-size:clamp(16px,1.8vw,18px); color:#dcdad2; margin:0 0 34px;
+    opacity:0; animation:riseIn 0.7s ease-out 0.4s forwards;
+  }
+  .hero .cta-row{
+    display:flex; gap:14px; flex-wrap:wrap;
+    opacity:0; animation:riseIn 0.7s ease-out 0.54s forwards;
+  }
+  @keyframes riseIn{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);} }
+
+  .hero-card{
+    border-radius:26px;
+    background:linear-gradient(150deg, var(--xu-navy) 0%, var(--reds) 55%, var(--alloy) 105%);
+    padding:40px 28px 28px;
+    min-height:360px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;
+    position:relative;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.55);
+  }
+  .hero-card .initials{
+    font-family:'Anton',sans-serif; font-size:96px; color:#fff; line-height:1;
+    text-shadow:0 8px 30px rgba(0,0,0,0.35);
+  }
+  .hero-card .path{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.18em;
+    text-transform:uppercase; color:rgba(255,255,255,0.75);
+  }
+  .hero-card .locale{
+    margin-top:8px;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase;
+    color:#fff; background:rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.3);
+    padding:7px 16px; border-radius:999px; backdrop-filter:blur(4px);
+  }
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{
+    overflow:hidden;
+    background:linear-gradient(90deg, var(--xu-navy), var(--reds), var(--alloy));
+    padding:13px 0;
+  }
+  .marquee-track{
+    display:flex; width:max-content; gap:16px;
+    animation:scrollMarquee 26s linear infinite;
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:#fff;
+    white-space:nowrap;
+  }
+  .marquee-track span{opacity:0.92;}
+  .marquee-track span.sep{opacity:0.55;}
+  @keyframes scrollMarquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:64px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+
+  .report p{font-size:17px; max-width:640px; color:#dcdad2; margin:0 0 16px;}
+  .report p:last-child{margin-bottom:0;}
+
+  /* ---------- CHAPTERS ---------- */
+  .chapters-intro{font-size:16px; color:#dcdad2; max-width:600px; margin:0 0 32px;}
+  .chapter-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  @media (max-width:860px){ .chapter-grid{grid-template-columns:1fr;} }
+  .chapter-card{
+    border-radius:18px; padding:26px 24px;
+    background:color-mix(in srgb, var(--accent-bg) 12%, var(--ink-2));
+    border:1px solid color-mix(in srgb, var(--accent) 38%, transparent);
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .chapter-card .org{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent);}
+  .chapter-card h3{font-family:'Anton',sans-serif; text-transform:uppercase; font-weight:400; font-size:21px; line-height:1.15; margin:0; color:var(--chalk);}
+  .chapter-card .focus{font-size:14px; color:var(--chalk-dim); line-height:1.55; margin:0;}
+  .chapter-card .sub-list{list-style:none; margin:2px 0 0; padding:0; display:flex; flex-direction:column; gap:7px;}
+  .chapter-card .sub-list li{font-size:13px; color:var(--chalk-dim); display:flex; gap:8px; line-height:1.5;}
+  .chapter-card .sub-list li::before{content:"—"; color:var(--accent); flex-shrink:0;}
+  .chapter-card .status{
+    align-self:flex-start; margin-top:auto; padding-top:4px;
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--accent); border:1px solid var(--accent); padding:4px 10px; border-radius:999px; display:inline-block;
+  }
+  .also-building{
+    margin-top:20px; font-size:14px; color:var(--chalk-dim);
+  }
+  .also-building a{color:var(--wood); text-decoration-color:var(--wood);}
+
+  /* ---------- HIGHLIGHTS / NUMBERED LISTS ---------- */
+  .highlights{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:0;}
+  .highlights li{display:flex; gap:20px; padding:18px 0; border-bottom:1px solid var(--line); font-size:15px; color:#dcdad2;}
+  .highlights li:last-child{border-bottom:none;}
+  .highlights .mark{font-family:'IBM Plex Mono',monospace; color:var(--accent); flex-shrink:0; width:24px;}
+
+  /* ---------- BOX SCORE GRID ---------- */
+  .box-score{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .stat-card{background:var(--ink); padding:26px 24px;}
+  .stat-card .label{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:10px;}
+  .stat-card .value{font-size:16px; color:var(--chalk); line-height:1.5;}
+  @media (max-width:640px){ .box-score{grid-template-columns:1fr;} }
+
+  /* ---------- RESOURCES ---------- */
+  .resources-intro{font-size:16px; color:#dcdad2; max-width:600px; margin:0 0 28px;}
+  .resource-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .resource-card{
+    display:flex; flex-direction:column; gap:12px; background:var(--ink); padding:26px 24px;
+    text-decoration:none; color:inherit; transition:background 0.15s ease;
+  }
+  .resource-card:hover{background:var(--ink-2);}
+  .resource-card:hover .launch{color:var(--accent);}
+  .resource-card .title{font-weight:700; font-size:16px; color:var(--chalk); line-height:1.3;}
+  .resource-card .blurb{font-size:14px; color:var(--chalk-dim); line-height:1.55; flex-grow:1;}
+  .resource-card .launch{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--wood); margin-top:2px;}
+  @media (max-width:640px){ .resource-grid{grid-template-columns:1fr;} }
+
+  /* ---------- CONTACT ---------- */
+  .contact-row{display:flex; flex-wrap:wrap; gap:14px; margin-top:22px;}
+
+  footer{
+    padding:28px 0 40px; font-family:'IBM Plex Mono',monospace; font-size:11px;
+    letter-spacing:0.08em; text-transform:uppercase; color:var(--chalk-dim);
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="wrap">
+      <a class="nav-id" href="#top">
+        <span class="nav-badge">MM</span>
+        <span class="nav-name">Matthew Masten</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#chapters">Chapters</a></li>
+        <li><a href="#ai">AI Systems</a></li>
+        <li><a href="#resources">Resources</a></li>
+      </ul>
+      <div class="nav-right">
+        <a class="btn btn-filled" href="#contact">Get In Touch</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">About Me</p>
+          <h1>I Build<br><span class="grad">What Ships</span></h1>
+          <p class="tagline">Marketing &amp; Entrepreneurship — Xavier University, Cincinnati OH</p>
+          <p class="desc">I split my time between a pro sports team, a startup incubator, and a business I started myself — turning ideas into things that actually go live.</p>
+          <div class="cta-row">
+            <a class="btn btn-filled" href="#contact">Get In Touch</a>
+            <a class="btn btn-outline" href="#chapters">See My Work</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="initials">MM</div>
+          <div class="path">Xavier &rarr; Reds &rarr; Alloy</div>
+          <div class="locale">Cincinnati, OH</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Student</span><span class="sep">•</span><span>Builder</span><span class="sep">•</span><span>Marketer</span><span class="sep">•</span><span>Always Shipping</span><span class="sep">•</span>
+      <span>Student</span><span class="sep">•</span><span>Builder</span><span class="sep">•</span><span>Marketer</span><span class="sep">•</span><span>Always Shipping</span><span class="sep">•</span>
+    </div>
+  </div>
+
+  <main>
+    <section class="report" id="about">
+      <div class="wrap">
+        <p class="eyebrow">The Short Version</p>
+        <p>I'm a Marketing and Entrepreneurship &amp; Innovation student at Xavier, and most of what I care about sits at the overlap of sports, business, and lately, AI.</p>
+        <p>The through-line this summer has been learning to build with AI instead of just talking to it: taking a judgment call my supervisor used to make by feel and turning it into something structured, calibrated, and repeatable. I'd rather own and scale something than climb a ladder somebody else built.</p>
+      </div>
+    </section>
+
+    <section class="chapters" id="chapters">
+      <div class="wrap">
+        <p class="eyebrow">Current Chapters</p>
+        <div class="chapter-grid">
+          <div class="chapter-card theme-reds" style="--accent:var(--reds); --accent-bg:var(--reds);">
+            <div class="org">Cincinnati Reds</div>
+            <h3>Game Day Promotional Events Intern</h3>
+            <p class="focus">Fan-facing promotions and event operations at Great American Ball Park.</p>
+            <span class="status">Active</span>
+          </div>
+          <div class="chapter-card theme-alloy" style="--accent:var(--alloy); --accent-bg:var(--alloy);">
+            <div class="org">Alloy Growth Lab</div>
+            <h3>Startup Catalyst / Student in Residence</h3>
+            <p class="focus">Content strategy, web builds, and AI systems for a Cincinnati startup incubator.</p>
+            <span class="status">Active</span>
+          </div>
+          <div class="chapter-card theme-xu" style="--accent:var(--xu); --accent-bg:var(--xu-navy);">
+            <div class="org">Xavier University</div>
+            <h3>Marketing &amp; Entrepreneurship / Innovation</h3>
+            <p class="focus">Class of 2027, Castleberry Scholar.</p>
+            <ul class="sub-list">
+              <li>Managed and practiced with Xavier Women's Basketball, before an NCAA rule change split those roles apart</li>
+              <li>Worked the Richard Pitino basketball camp at Cintas Center</li>
+            </ul>
+            <span class="status">Class of '27</span>
+          </div>
+        </div>
+        <p class="also-building">Also building: <a href="https://fundamental-basketball.com" target="_blank" rel="noopener">Fun'Damental Basketball ↗</a>, a youth training business I started from scratch.</p>
+      </div>
+    </section>
+
+    <section class="ai-systems theme-alloy" id="ai" style="--accent:var(--alloy);">
+      <div class="wrap">
+        <p class="eyebrow">Reps: Building With AI</p>
+        <p class="resources-intro">The clearest growth I've had this summer is learning to build with AI instead of just prompting it. A few of the systems that came out of it, all built during my time at Alloy:</p>
+        <ul class="highlights">
+          <li><span class="mark">01</span>Built a founder-screening system. Turned 79 of Alloy's real QCA Ventures screening decisions into a calibrated rubric, then a ChatGPT Project, then a live web tool that evaluates a new founder's application and drafts a recommendation email for staff to review and send.</li>
+          <li><span class="mark">02</span>Rebuilt content for how AI actually reads it. Restructured Alloy's blog posts into extractable, context-independent sections so AI answer engines like ChatGPT and Perplexity can cite them directly, not just traditional search.</li>
+          <li><span class="mark">03</span>Taught myself to ship full apps, not just prompts. Used Base44 and Enterprise ChatGPT to design and launch five live tools for Alloy, from a small-business grant finder to a QR generator, without a traditional engineering background.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="resources theme-alloy" id="resources" style="--accent:var(--alloy);">
+      <div class="wrap">
+        <p class="eyebrow">Resources Built for Alloy</p>
+        <p class="resources-intro">Tools I've designed and shipped during my co-op at Alloy Growth Lab and Alloy Development Co, live and in use today.</p>
+        <div class="resource-grid">
+          <a class="resource-card" href="https://startup-resource-hub-alloy-growth-c6f85c68.base44.app" target="_blank" rel="noopener">
+            <div class="title">Startup Resource Hub</div>
+            <div class="blurb">62+ vetted guides, templates, and tools for founders, organized into five practical groups.</div>
+            <div class="launch">Launch ↗</div>
+          </a>
+          <a class="resource-card" href="https://alloy-dev-co-small-business-hub.base44.app" target="_blank" rel="noopener">
+            <div class="title">Alloy Resource Hub</div>
+            <div class="blurb">Grants, CDFI lending, procurement, and public real estate, mapped out for Cincinnati small business owners.</div>
+            <div class="launch">Launch ↗</div>
+          </a>
+          <a class="resource-card" href="https://small-business-grant-finder-14bb74f6.base44.app" target="_blank" rel="noopener">
+            <div class="title">Small-Business Grant Finder</div>
+            <div class="blurb">A curated list of open small-business grants, sorted by what they offer and refreshed weekly.</div>
+            <div class="launch">Launch ↗</div>
+          </a>
+          <a class="resource-card" href="https://alloy-referral-program-0e86e8dd.base44.app" target="_blank" rel="noopener">
+            <div class="title">Alloy Referral Program</div>
+            <div class="blurb">A referral program built for Alloy Growth Lab.</div>
+            <div class="launch">Launch ↗</div>
+          </a>
+          <a class="resource-card" href="https://meteoric-quick-link-scan.base44.app" target="_blank" rel="noopener">
+            <div class="title">FounderQR</div>
+            <div class="blurb">Turn any link into a high-resolution QR code instantly. Free, no account, no watermark.</div>
+            <div class="launch">Launch ↗</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="box-score-section">
+      <div class="wrap">
+        <p class="eyebrow">Box Score</p>
+        <div class="box-score">
+          <div class="stat-card">
+            <div class="label">Foundation</div>
+            <div class="value">Entrepreneurship, sports (basketball &amp; baseball), and marketing.</div>
+          </div>
+          <div class="stat-card" style="--accent:var(--reds);">
+            <div class="label">Team Loyalty</div>
+            <div class="value">Cincinnati Reds, followed closely.</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Off the Clock</div>
+            <div class="value">Competitive NBA 2K26.</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Heritage</div>
+            <div class="value">Portuguese-speaking family ties, some bilingual ability.</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">The Long Game</div>
+            <div class="value">Own and scale businesses rather than climb the corporate ladder.</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Next Move</div>
+            <div class="value">Weighing a move to Europe after Xavier — to work there, or start something new.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="wrap">
+        <p class="eyebrow">Get In Touch</p>
+        <p style="max-width:520px;color:#dcdad2;font-size:16px;margin:0;">Open to conversations about AI-built systems, marketing, or Cincinnati's startup scene.</p>
+        <div class="contact-row">
+          <a class="btn btn-filled" href="mailto:mzm8805@gmail.com">Email</a>
+          <a class="btn btn-outline" href="https://www.linkedin.com/in/masten-matthew" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">Matthew Masten — Cincinnati, OH</div>
+  </footer>
+
+</body>
+</html>
