@@ -247,6 +247,69 @@
   /* ---------- CONTACT ---------- */
   .contact-row{display:flex; flex-wrap:wrap; gap:14px; margin-top:22px;}
 
+  /* ---------- SCROLL REVEAL ----------
+     .reveal-on is added to <html> by JS only when motion is allowed,
+     so no-JS and reduced-motion visitors always see fully visible content. */
+  .reveal-on main section{
+    opacity:0; transform:translateY(24px);
+    transition:opacity 0.7s cubic-bezier(0.2,0.7,0.3,1), transform 0.7s cubic-bezier(0.2,0.7,0.3,1);
+  }
+  .reveal-on main section.in{opacity:1; transform:none;}
+
+  /* children rise in behind their section */
+  .reveal-on main section :is(.chapter-grid,.resource-grid,.highlights,.count-row) > *{
+    opacity:0; transform:translateY(16px);
+    transition:opacity 0.55s ease-out, transform 0.55s ease-out;
+  }
+  .reveal-on main section.in :is(.chapter-grid,.resource-grid,.highlights,.count-row) > *{
+    opacity:1; transform:none;
+  }
+  /* box score fades only — its 1px hairlines are the container background,
+     so translating the cards would flash the grid lines mid-animation */
+  .reveal-on main section .box-score > *{opacity:0; transition:opacity 0.5s ease-out;}
+  .reveal-on main section.in .box-score > *{opacity:1;}
+
+  .reveal-on main section.in :is(.chapter-grid,.resource-grid,.highlights,.count-row,.box-score) > *:nth-child(2){transition-delay:0.07s;}
+  .reveal-on main section.in :is(.chapter-grid,.resource-grid,.highlights,.count-row,.box-score) > *:nth-child(3){transition-delay:0.14s;}
+  .reveal-on main section.in :is(.chapter-grid,.resource-grid,.highlights,.count-row,.box-score) > *:nth-child(4){transition-delay:0.21s;}
+  .reveal-on main section.in :is(.chapter-grid,.resource-grid,.highlights,.count-row,.box-score) > *:nth-child(5){transition-delay:0.28s;}
+  .reveal-on main section.in :is(.chapter-grid,.resource-grid,.highlights,.count-row,.box-score) > *:nth-child(6){transition-delay:0.35s;}
+
+  /* ---------- COUNTERS ---------- */
+  .count-row{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); margin:0 0 34px;
+  }
+  .count{background:var(--ink); padding:22px 20px; display:flex; flex-direction:column; gap:8px;}
+  .count .num{
+    font-family:'Anton',sans-serif; font-size:clamp(34px,5vw,48px); line-height:1;
+    color:var(--accent); font-variant-numeric:tabular-nums;
+  }
+  .count .cap{font-size:13px; color:var(--chalk-dim); line-height:1.5;}
+  @media (max-width:640px){ .count-row{grid-template-columns:1fr;} }
+
+  /* ---------- SPOTLIGHT CARDS ---------- */
+  .resource-card{position:relative; overflow:hidden;}
+  .resource-card::after{
+    content:""; position:absolute; inset:0; pointer-events:none; z-index:0;
+    background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),
+      color-mix(in srgb, var(--accent) 20%, transparent), transparent 72%);
+    opacity:0; transition:opacity 0.25s ease;
+  }
+  .resource-card:hover::after{opacity:1;}
+  .resource-card > *{position:relative; z-index:1;}
+
+  /* ---------- HERO CYCLING WORD ---------- */
+  .hero h1 .grad{transition:opacity 0.3s ease;}
+
+  /* ---------- FILM GRAIN ---------- */
+  .grain{
+    position:fixed; inset:0; z-index:999; pointer-events:none;
+    opacity:0.045; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)'/%3E%3C/svg%3E");
+    background-size:200px 200px;
+  }
+
   footer{
     padding:28px 0 40px; font-family:'IBM Plex Mono',monospace; font-size:11px;
     letter-spacing:0.08em; text-transform:uppercase; color:var(--chalk-dim);
@@ -254,6 +317,8 @@
 </style>
 </head>
 <body>
+
+  <div class="grain" aria-hidden="true"></div>
 
   <nav class="nav">
     <div class="wrap">
@@ -279,7 +344,7 @@
       <div class="hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">About Me</p>
-          <h1>I Build<br><span class="grad">What Ships</span></h1>
+          <h1>I Build<br><span class="grad" id="cycle">What Ships</span></h1>
           <p class="tagline">Marketing &amp; Entrepreneurship — Xavier University, Cincinnati OH</p>
           <p class="desc">I split my time between a pro sports team, a startup incubator, and a business I started myself — turning ideas into things that actually go live.</p>
           <div class="cta-row">
@@ -347,6 +412,20 @@
       <div class="wrap">
         <p class="eyebrow">Reps: Building With AI</p>
         <p class="resources-intro">The clearest growth I've had this summer is learning to build with AI instead of just prompting it. A few of the systems that came out of it, all built during my time at Alloy:</p>
+        <div class="count-row">
+          <div class="count">
+            <span class="num" data-target="79">79</span>
+            <span class="cap">Real screening decisions turned into a calibrated rubric</span>
+          </div>
+          <div class="count">
+            <span class="num" data-target="5">5</span>
+            <span class="cap">Live tools designed and shipped for Alloy</span>
+          </div>
+          <div class="count">
+            <span class="num" data-target="62" data-suffix="+">62+</span>
+            <span class="cap">Vetted founder guides, templates, and tools curated</span>
+          </div>
+        </div>
         <ul class="highlights">
           <li><span class="mark">01</span>Built a founder-screening system. Turned 79 of Alloy's real QCA Ventures screening decisions into a calibrated rubric, then a ChatGPT Project, then a live web tool that evaluates a new founder's application and drafts a recommendation email for staff to review and send.</li>
           <li><span class="mark">02</span>Rebuilt content for how AI actually reads it. Restructured Alloy's blog posts into extractable, context-independent sections so AI answer engines like ChatGPT and Perplexity can cite them directly, not just traditional search.</li>
@@ -436,6 +515,71 @@
   <footer>
     <div class="wrap">Matthew Masten — Cincinnati, OH</div>
   </footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var sections = document.querySelectorAll('main section');
+  var hasIO = 'IntersectionObserver' in window;
+
+  // Only hide-then-reveal when motion is welcome and we can observe scroll.
+  if(!reduce && hasIO){
+    document.documentElement.classList.add('reveal-on');
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:0.15, rootMargin:'0px 0px -60px 0px'});
+    sections.forEach(function(s){ io.observe(s); });
+  }
+
+  // ---- counters ----
+  function runCount(el){
+    var target = parseInt(el.getAttribute('data-target'), 10);
+    var suffix = el.getAttribute('data-suffix') || '';
+    if(reduce){ el.textContent = target + suffix; return; }
+    var start = null, dur = 1100;
+    requestAnimationFrame(function step(ts){
+      if(start === null) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suffix;
+      if(p < 1) requestAnimationFrame(step);
+    });
+  }
+  var nums = document.querySelectorAll('.num[data-target]');
+  if(hasIO && !reduce){
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ runCount(e.target); cio.unobserve(e.target); }
+      });
+    }, {threshold:0.6});
+    nums.forEach(function(n){ n.textContent = '0'; cio.observe(n); });
+  }
+
+  // ---- spotlight follow ----
+  document.querySelectorAll('.resource-card').forEach(function(card){
+    card.addEventListener('pointermove', function(ev){
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (ev.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (ev.clientY - r.top) + 'px');
+    });
+  });
+
+  // ---- cycling headline ----
+  var cycle = document.getElementById('cycle');
+  if(cycle && !reduce){
+    var words = ['What Ships','What Sells','What Lasts'], i = 0;
+    setInterval(function(){
+      cycle.style.opacity = '0';
+      setTimeout(function(){
+        i = (i + 1) % words.length;
+        cycle.textContent = words[i];
+        cycle.style.opacity = '1';
+      }, 320);
+    }, 3200);
+  }
+})();
+</script>
 
 </body>
 </html>
