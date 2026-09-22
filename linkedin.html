@@ -3,227 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Matthew Masten — LinkedIn</title>
-<meta name="description" content="Matthew Masten's professional profile — Cincinnati Reds, Alloy Growth Lab, Xavier University. Connect on LinkedIn.">
+
+<title>Matthew Masten — LinkedIn | Marketing &amp; Entrepreneurship, Xavier University</title>
+<meta name="description" content="Matthew Masten's professional profile — Alloy Growth Lab, Cincinnati Reds, Fun'Damental Basketball, Xavier University. Connect on LinkedIn.">
+<link rel="canonical" href="https://mmasten49.github.io/linkedin.html">
+<meta name="author" content="Matthew Masten">
+<meta name="theme-color" content="#0d0e12">
+
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Matthew Masten">
+<meta property="og:title" content="Matthew Masten — LinkedIn">
+<meta property="og:description" content="Marketing &amp; Operations Intern at Alloy Growth Lab. Cincinnati Reds promotions. Founder, Fun'Damental Basketball. Xavier University, Class of 2027.">
+<meta property="og:url" content="https://mmasten49.github.io/linkedin.html">
+<meta property="og:image" content="https://mmasten49.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Matthew Masten — LinkedIn">
+<meta name="twitter:description" content="Marketing &amp; Operations Intern at Alloy Growth Lab. Xavier University, Class of 2027.">
+<meta name="twitter:image" content="https://mmasten49.github.io/og-image.png">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230c2340'/%3E%3Cstop offset='0.55' stop-color='%23c6011f'/%3E%3Cstop offset='1' stop-color='%23f77000'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='43' font-family='Arial Black,Arial,sans-serif' font-size='27' font-weight='900' fill='%23fff' text-anchor='middle'%3EMM%3C/text%3E%3C/svg%3E">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#0d0e12;
-    --ink-2:#16181f;
-    --chalk:#f5f3ec;
-    --chalk-dim:#a9a69c;
-    --line:rgba(245,243,236,0.10);
-    --line-strong:rgba(245,243,236,0.20);
-
-    --scarlet:#c8102e;
-    --wood:#a3673a;
-
-    /* org palettes, verified against each org's own brand colors */
-    --reds:#c6011f;
-    --alloy:#f77000;
-    --xu:#0099cc;
-    --xu-navy:#0c2340;
-    --linkedin:#0a66c2;
-
-    --accent:var(--linkedin);
-    --accent-bg:var(--linkedin);
-  }
-
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
-  }
-
-  body{
-    margin:0;
-    background:var(--ink);
-    color:var(--chalk);
-    font-family:'Inter',system-ui,sans-serif;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-
-  a{color:var(--chalk);}
-  a:focus-visible, button:focus-visible{
-    outline:2px solid var(--accent);
-    outline-offset:3px;
-    border-radius:2px;
-  }
-
-  .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
-
-  .eyebrow{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12px;
-    letter-spacing:0.22em;
-    text-transform:uppercase;
-    color:var(--accent);
-    display:flex; align-items:center; gap:10px;
-    margin-bottom:18px;
-  }
-  .eyebrow::before{content:""; width:22px; height:2px; background:var(--accent); display:inline-block;}
-
-  /* ---------- BUTTONS ---------- */
-  .btn{
-    display:inline-flex; align-items:center; gap:8px;
-    padding:13px 26px;
-    border-radius:999px;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12.5px;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    text-decoration:none;
-    transition:transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
-    white-space:nowrap;
-  }
-  .btn-filled{background:var(--accent); color:#fff; border:1px solid var(--accent); font-weight:600;}
-  .btn-filled:hover{transform:translateY(-2px); filter:brightness(1.12);}
-  .btn-outline{background:transparent; color:var(--chalk); border:1px solid var(--line-strong);}
-  .btn-outline:hover{border-color:var(--chalk); transform:translateY(-2px);}
-
-  /* ---------- NAV ---------- */
-  .nav{
-    position:sticky; top:0; z-index:50;
-    background:rgba(13,14,18,0.86);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  .nav .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:16px; padding-bottom:16px; gap:20px;}
-  .nav-id{display:flex; align-items:center; gap:12px; text-decoration:none;}
-  .nav-badge{
-    width:36px; height:36px; border-radius:9px;
-    background:linear-gradient(135deg, var(--xu-navy) 0%, var(--reds) 55%, var(--alloy) 100%);
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Anton',sans-serif; font-size:14px; color:#fff; letter-spacing:0.02em;
-    flex-shrink:0;
-  }
-  .nav-name{font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--chalk);}
-  .nav-links{display:flex; align-items:center; gap:28px; list-style:none; margin:0; padding:0;}
-  .nav-links a{
-    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
-    color:var(--chalk-dim); text-decoration:none; transition:color 0.15s ease;
-  }
-  .nav-links a:hover{color:var(--chalk);}
-  .nav-links a[aria-current="page"]{color:var(--accent);}
-  .nav-right{display:flex; align-items:center; gap:26px;}
-  @media (max-width:760px){ .nav-links{display:none;} }
-
-  /* ---------- HERO ---------- */
-  .hero{padding:76px 0 0; border-bottom:1px solid var(--line);}
-  .hero-grid{
-    display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;
-    padding-bottom:64px;
-  }
-  @media (max-width:860px){ .hero-grid{grid-template-columns:1fr; gap:44px;} }
-
-  .hero h1{
-    font-family:'Anton',sans-serif; font-weight:400; text-transform:uppercase;
-    font-size:clamp(40px,6.2vw,72px); line-height:0.94; letter-spacing:0.01em;
-    margin:0 0 22px;
-    opacity:0; animation:riseIn 0.7s ease-out 0.1s forwards;
-  }
-  .hero h1 .grad{
-    background:linear-gradient(90deg, var(--linkedin), var(--xu));
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-  }
-  .hero .tagline{
-    font-family:'IBM Plex Mono',monospace; font-size:clamp(13px,1.5vw,15px);
-    letter-spacing:0.06em; text-transform:uppercase; color:var(--chalk-dim);
-    margin:0 0 22px;
-    opacity:0; animation:riseIn 0.7s ease-out 0.26s forwards;
-  }
-  .hero p.desc{
-    max-width:480px; font-size:clamp(16px,1.8vw,18px); color:#dcdad2; margin:0 0 34px;
-    opacity:0; animation:riseIn 0.7s ease-out 0.4s forwards;
-  }
-  .hero .cta-row{
-    display:flex; gap:14px; flex-wrap:wrap;
-    opacity:0; animation:riseIn 0.7s ease-out 0.54s forwards;
-  }
-  @keyframes riseIn{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);} }
-
-  .hero-card{
-    border-radius:26px;
-    background:linear-gradient(150deg, var(--xu-navy) 0%, var(--linkedin) 60%, var(--xu) 110%);
-    padding:40px 28px 30px;
-    min-height:360px;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
-    box-shadow:0 30px 60px -20px rgba(0,0,0,0.55);
-  }
-  .hero-card .in-mark{
-    font-family:'Anton',sans-serif; font-size:84px; color:#fff; line-height:1;
-    text-shadow:0 8px 30px rgba(0,0,0,0.35);
-  }
-  .hero-card .handle{
-    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.14em;
-    text-transform:uppercase; color:rgba(255,255,255,0.78); text-align:center; line-height:1.7;
-  }
-  .hero-card .locale{
-    margin-top:6px;
-    font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase;
-    color:#fff; background:rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.3);
-    padding:7px 16px; border-radius:999px; backdrop-filter:blur(4px);
-  }
-
-  /* ---------- SECTIONS ---------- */
-  section{padding:64px 0; border-bottom:1px solid var(--line);}
-  section:last-of-type{border-bottom:none;}
-  .lede{font-size:16px; color:#dcdad2; max-width:620px; margin:0 0 32px;}
-
-  /* ---------- EXPERIENCE TIMELINE ---------- */
-  .timeline{list-style:none; margin:0; padding:0;}
-  .timeline li{
-    display:grid; grid-template-columns:150px 1fr; gap:26px;
-    padding:24px 0; border-bottom:1px solid var(--line);
-  }
-  .timeline li:last-child{border-bottom:none;}
-  @media (max-width:700px){ .timeline li{grid-template-columns:1fr; gap:10px;} }
-  .timeline .org{
-    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.12em;
-    text-transform:uppercase; color:var(--role-accent,var(--accent)); line-height:1.5; padding-top:4px;
-  }
-  .timeline .role h3{
-    font-family:'Anton',sans-serif; font-weight:400; text-transform:uppercase;
-    font-size:20px; line-height:1.15; margin:0 0 8px; color:var(--chalk);
-  }
-  .timeline .role p{margin:0; font-size:15px; color:#dcdad2;}
-  .timeline .role .meta{
-    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.08em;
-    text-transform:uppercase; color:var(--chalk-dim); margin-top:10px;
-  }
-
-  /* ---------- SKILL TAGS ---------- */
-  .tag-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:4px;}
-  .tag{
-    font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.08em;
-    text-transform:uppercase; color:var(--chalk-dim);
-    border:1px solid var(--line-strong); border-radius:999px; padding:7px 15px;
-  }
-
-  /* ---------- CONNECT PANEL ---------- */
-  .connect{
-    border-radius:22px; padding:38px 32px;
-    background:color-mix(in srgb, var(--linkedin) 14%, var(--ink-2));
-    border:1px solid color-mix(in srgb, var(--linkedin) 42%, transparent);
-  }
-  .connect h2{
-    font-family:'Anton',sans-serif; font-weight:400; text-transform:uppercase;
-    font-size:clamp(26px,3.6vw,38px); line-height:1.05; margin:0 0 14px; color:var(--chalk);
-  }
-  .connect p{margin:0 0 24px; font-size:16px; color:#dcdad2; max-width:540px;}
-  .connect .cta-row{display:flex; flex-wrap:wrap; gap:14px;}
-
-  footer{
-    padding:28px 0 40px; font-family:'IBM Plex Mono',monospace; font-size:11px;
-    letter-spacing:0.08em; text-transform:uppercase; color:var(--chalk-dim);
-  }
-</style>
+<link rel="stylesheet" href="/style.css">
+<style>:root{--accent:var(--linkedin); --accent-bg:var(--linkedin);}</style>
 </head>
 <body>
+
+  <div class="grain" aria-hidden="true"></div>
+  <a class="skip" href="#main">Skip to content</a>
 
   <nav class="nav">
     <div class="wrap">
@@ -233,8 +44,9 @@
       </a>
       <ul class="nav-links">
         <li><a href="/index.html">Home</a></li>
-        <li><a href="/index.html#chapters">Chapters</a></li>
-        <li><a href="/index.html#ai">AI Systems</a></li>
+        <li><a href="/index.html#work">Work</a></li>
+        <li><a href="/index.html#systems">AI Systems</a></li>
+        <li><a href="/resume.html">Résumé</a></li>
         <li><a href="/linkedin.html" aria-current="page">LinkedIn</a></li>
       </ul>
       <div class="nav-right">
@@ -249,14 +61,14 @@
         <div class="hero-copy">
           <p class="eyebrow">Professional Profile</p>
           <h1>Let's<br><span class="grad">Connect</span></h1>
-          <p class="tagline">Marketing &amp; Entrepreneurship — Xavier University, Cincinnati OH</p>
+          <p class="tagline">Marketing &amp; Entrepreneurship — Xavier University, Class of 2027</p>
           <p class="desc">The short version of where I've worked and what I've built. The full profile, and anything I've posted lately, lives on LinkedIn.</p>
           <div class="cta-row">
             <a class="btn btn-filled" href="https://www.linkedin.com/in/masten-matthew" target="_blank" rel="noopener">View LinkedIn Profile &#8599;</a>
-            <a class="btn btn-outline" href="/index.html">Back To Home</a>
+            <a class="btn btn-outline" href="/resume.html">Résumé</a>
           </div>
         </div>
-        <div class="hero-card">
+        <div class="hero-card in-card">
           <div class="in-mark">in</div>
           <div class="handle">linkedin.com/in/<br>masten-matthew</div>
           <div class="locale">Cincinnati, OH</div>
@@ -265,42 +77,71 @@
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <section id="experience">
       <div class="wrap">
         <p class="eyebrow">Experience</p>
-        <p class="lede">Three active chapters plus a business of my own — sports operations, startup strategy, and the AI systems work that ties them together.</p>
+        <p class="lede">Marketing and operations at a startup incubator, a full season of promotions at an MLB ballpark, a business of my own, and four years on the support staff of a Division I program.</p>
         <ul class="timeline">
-          <li style="--role-accent:var(--reds);">
-            <div class="org">Cincinnati Reds</div>
+          <li style="--role-accent:var(--alloy);">
+            <div class="org">Alloy Growth Lab<span class="when">Jun 2026 — Present</span></div>
             <div class="role">
-              <h3>Game Day Promotional Events Intern</h3>
-              <p>Fan-facing promotions and event operations at Great American Ball Park.</p>
+              <h3>Marketing &amp; Operations Intern</h3>
+              <p>SEO and AI-answer content on WordPress, LinkedIn content strategy, and five live no-code tools shipped on Base44 — including a founder-screening system built from 79 historical venture screening decisions.</p>
               <div class="meta">Active</div>
             </div>
           </li>
-          <li style="--role-accent:var(--alloy);">
-            <div class="org">Alloy Growth Lab</div>
+          <li style="--role-accent:var(--reds);">
+            <div class="org">Cincinnati Reds<span class="when">Mar 2026 — Sep 2026</span></div>
             <div class="role">
-              <h3>Startup Catalyst / Student in Residence</h3>
-              <p>Content strategy, web builds, and AI systems for a Cincinnati startup incubator. Designed and shipped five live tools now in use, including a founder-screening system built from 79 real QCA Ventures screening decisions.</p>
-              <div class="meta">Active</div>
+              <h3>Promotional Events Game Day Intern</h3>
+              <p>Pregame and in-game promotional activations for crowds of up to 40,000+ at Great American Ball Park, plus proof-of-performance reporting for Corporate Partnerships.</p>
+              <div class="meta">Full season — completed</div>
             </div>
           </li>
           <li style="--role-accent:var(--wood);">
-            <div class="org">Fun'Damental Basketball</div>
+            <div class="org">Fun'Damental Basketball<span class="when">Apr 2025 — Present</span></div>
             <div class="role">
               <h3>Founder</h3>
-              <p>A youth basketball training business I started from scratch and still run.</p>
+              <p>A youth basketball training business I started from scratch and still run — positioning, pricing, site, and customer acquisition, all mine.</p>
               <div class="meta">Founder &amp; Operator</div>
             </div>
           </li>
           <li style="--role-accent:var(--xu);">
-            <div class="org">Xavier University</div>
+            <div class="org">Xavier Women's Basketball<span class="when">Aug 2023 — Present</span></div>
             <div class="role">
-              <h3>Marketing &amp; Entrepreneurship / Innovation</h3>
-              <p>Class of 2027, Castleberry Scholar. Managed and practiced with Xavier Women's Basketball before an NCAA rule change split those roles apart, and worked the Richard Pitino basketball camp at Cintas Center.</p>
-              <div class="meta">Class of '27</div>
+              <h3>Practice Player &amp; Former Team Manager</h3>
+              <p>Support staff for an NCAA Division I program. Practice player since 2023; added team manager in 2025–26 until an NCAA rule change ended dual roles.</p>
+              <div class="meta">Support staff — not a rostered player</div>
+            </div>
+          </li>
+          <li style="--role-accent:var(--wood);">
+            <div class="org">Windermere Basketball Academy<span class="when">Summers 2022 — 2024</span></div>
+            <div class="role">
+              <h3>Basketball Coach &amp; Skills Trainer</h3>
+              <p>Individual and small-group skills training for youth athletes across three summers in Clermont, FL.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="education" style="--accent:var(--xu);">
+      <div class="wrap">
+        <p class="eyebrow">Education</p>
+        <ul class="timeline">
+          <li style="--role-accent:var(--xu);">
+            <div class="org">Xavier University<span class="when">Expected May 2027</span></div>
+            <div class="role">
+              <h3>B.S. Business Administration</h3>
+              <p>Double major: Marketing and Entrepreneurship &amp; Innovation.</p>
+            </div>
+          </li>
+          <li style="--role-accent:var(--scarlet);">
+            <div class="org">Maastricht University<span class="when">Jan 2025 — Jun 2025</span></div>
+            <div class="role">
+              <h3>School of Business and Economics</h3>
+              <p>International Exchange Program, Maastricht, Netherlands.</p>
             </div>
           </li>
         </ul>
@@ -310,16 +151,17 @@
     <section id="strengths">
       <div class="wrap">
         <p class="eyebrow">What I Bring</p>
-        <p class="lede">The overlap of sports, business, and AI — with a bias toward building the thing instead of writing the deck about it.</p>
+        <p class="lede">The overlap of marketing, business, and AI — with a bias toward building the thing instead of writing the deck about it.</p>
         <div class="tag-row">
           <span class="tag">Marketing Strategy</span>
-          <span class="tag">Entrepreneurship</span>
-          <span class="tag">AI Systems Design</span>
+          <span class="tag">SEO</span>
+          <span class="tag">AEO — AI-Answer Optimization</span>
           <span class="tag">Content Strategy</span>
+          <span class="tag">AI Systems Design</span>
+          <span class="tag">LinkedIn Analytics</span>
+          <span class="tag">Brand Systems</span>
           <span class="tag">Event Operations</span>
-          <span class="tag">Web Builds</span>
-          <span class="tag">Sports Business</span>
-          <span class="tag">Rubric &amp; Process Design</span>
+          <span class="tag">Entrepreneurship</span>
         </div>
       </div>
     </section>
@@ -328,7 +170,7 @@
       <div class="wrap">
         <div class="connect">
           <h2>Find Me On LinkedIn</h2>
-          <p>Open to conversations about AI-built systems, marketing, or Cincinnati's startup scene. LinkedIn is the fastest way to reach me — email works too.</p>
+          <p>Open to conversations about marketing, AI-built systems, or Cincinnati's startup scene. LinkedIn is the fastest way to reach me — email works too.</p>
           <div class="cta-row">
             <a class="btn btn-filled" href="https://www.linkedin.com/in/masten-matthew" target="_blank" rel="noopener">linkedin.com/in/masten-matthew &#8599;</a>
             <a class="btn btn-outline" href="mailto:mzm8805@gmail.com">Email</a>
@@ -339,8 +181,31 @@
   </main>
 
   <footer>
-    <div class="wrap">Matthew Masten — Cincinnati, OH</div>
+    <div class="wrap">
+      <span>Matthew Masten — Cincinnati, OH</span>
+      <span><a href="mailto:mzm8805@gmail.com">mzm8805@gmail.com</a> · <a href="https://github.com/mmasten49" target="_blank" rel="noopener">GitHub</a></span>
+    </div>
   </footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO = 'IntersectionObserver' in window;
+  if(!reduce && hasIO){
+    document.documentElement.classList.add('reveal-on');
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:0, rootMargin:'0px 0px -80px 0px'});
+    // threshold MUST stay 0. A ratio-based threshold is height-dependent:
+    // a section taller than the viewport can never reach 15% intersection,
+    // so it would stay at opacity:0 forever. threshold 0 fires on the first
+    // pixel that crosses, whatever the section's height.
+    document.querySelectorAll('main section').forEach(function(s){ io.observe(s); });
+  }
+})();
+</script>
 
 </body>
 </html>

@@ -1,1 +1,18 @@
-.claude/skills/github-pages/
+# This repo is PUBLIC and serves mmasten49.github.io from the root of main.
+# Anything not ignored here is readable by anyone on the internet.
+
+# Local agent config and skills — personal rules, email addresses, working notes.
+.claude/
+CLAUDE.md
+
+# Coursework and build logs — not part of the site.
+my-work/
+
+# Anything staged for scrubbing before it ships.
+private/
+*.local.*
+
+# OS / editor noise
+Thumbs.db
+desktop.ini
+.DS_Store

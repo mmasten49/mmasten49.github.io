@@ -1,0 +1,510 @@
+/* ============================================================
+   Matthew Masten — shared stylesheet
+   One source of truth for tokens, base rules, and components.
+   Every page links this. Never redeclare tokens in a page.
+   ============================================================ */
+
+:root{
+  --ink:#0d0e12;
+  --ink-2:#16181f;
+  --chalk:#f5f3ec;
+  --chalk-dim:#a9a69c;
+  --line:rgba(245,243,236,0.10);
+  --line-strong:rgba(245,243,236,0.20);
+
+  --scarlet:#c8102e;
+  --wood:#a3673a;
+
+  /* org palettes, verified against each org's own brand colors */
+  --reds:#c6011f;
+  --alloy:#f77000;
+  --xu:#0099cc;
+  --xu-navy:#0c2340;
+  --linkedin:#0a66c2;
+
+  --accent:var(--scarlet);
+  --accent-bg:var(--scarlet);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  .marquee-track{animation:none !important; transform:none !important;}
+}
+
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--chalk);
+  font-family:'Inter',system-ui,sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{color:var(--chalk);}
+a:focus-visible, button:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+.wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
+
+/* skip link — keyboard users shouldn't tab the whole nav every page */
+.skip{
+  position:absolute; left:-9999px; top:0; z-index:100;
+  background:var(--accent); color:#0d0e12; padding:12px 20px;
+  font-family:'IBM Plex Mono',monospace; font-size:12px; text-transform:uppercase;
+  letter-spacing:0.1em; text-decoration:none;
+}
+.skip:focus{left:0;}
+
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--accent);
+  display:flex; align-items:center; gap:10px;
+  margin-bottom:18px;
+}
+.eyebrow::before{content:""; width:22px; height:2px; background:var(--accent); display:inline-block;}
+
+.lede{font-size:16px; color:#dcdad2; max-width:620px; margin:0 0 30px;}
+
+/* ---------- BUTTONS ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:13px 26px;
+  border-radius:999px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12.5px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  white-space:nowrap;
+}
+.btn-filled{background:var(--accent); color:#0d0e12; border:1px solid var(--accent); font-weight:600;}
+.btn-filled:hover{transform:translateY(-2px); filter:brightness(1.08);}
+.btn-outline{background:transparent; color:var(--chalk); border:1px solid var(--line-strong);}
+.btn-outline:hover{border-color:var(--chalk); transform:translateY(-2px);}
+
+/* ---------- NAV ---------- */
+.nav{
+  position:sticky; top:0; z-index:50;
+  background:rgba(13,14,18,0.86);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:16px; padding-bottom:16px; gap:20px;}
+.nav-id{display:flex; align-items:center; gap:12px; text-decoration:none;}
+.nav-badge{
+  width:36px; height:36px; border-radius:9px;
+  background:linear-gradient(135deg, var(--xu-navy) 0%, var(--reds) 55%, var(--alloy) 100%);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Anton',sans-serif; font-size:14px; color:#fff; letter-spacing:0.02em;
+  flex-shrink:0;
+}
+.nav-name{font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--chalk);}
+.nav-links{display:flex; align-items:center; gap:26px; list-style:none; margin:0; padding:0;}
+.nav-links a{
+  font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--chalk-dim); text-decoration:none; transition:color 0.15s ease;
+}
+.nav-links a:hover, .nav-links a[aria-current="page"]{color:var(--chalk);}
+.nav-right{display:flex; align-items:center; gap:26px;}
+@media (max-width:860px){ .nav-links{display:none;} }
+/* at phone width the wordmark wraps to two lines and doubles the nav height;
+   the badge alone carries it, and the name is in the <title> and the h1 anyway */
+@media (max-width:460px){ .nav-name{display:none;} }
+
+/* ---------- HERO ---------- */
+.hero{padding:76px 0 0; border-bottom:1px solid var(--line);}
+.hero-grid{
+  display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;
+  padding-bottom:64px;
+}
+@media (max-width:860px){ .hero-grid{grid-template-columns:1fr; gap:44px;} }
+
+.hero h1{
+  font-family:'Anton',sans-serif; font-weight:400; text-transform:uppercase;
+  font-size:clamp(42px,6.6vw,76px); line-height:0.94; letter-spacing:0.01em;
+  margin:0 0 22px;
+  opacity:0; animation:riseIn 0.7s ease-out 0.1s forwards;
+}
+.hero h1 .grad{
+  background:linear-gradient(90deg, var(--reds), var(--alloy));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  transition:opacity 0.3s ease;
+}
+.hero .tagline{
+  font-family:'IBM Plex Mono',monospace; font-size:clamp(12.5px,1.5vw,14.5px);
+  letter-spacing:0.06em; text-transform:uppercase; color:var(--chalk-dim);
+  margin:0 0 22px;
+  opacity:0; animation:riseIn 0.7s ease-out 0.26s forwards;
+}
+.hero p.desc{
+  max-width:500px; font-size:clamp(16px,1.8vw,18px); color:#dcdad2; margin:0 0 34px;
+  opacity:0; animation:riseIn 0.7s ease-out 0.4s forwards;
+}
+.hero .cta-row{
+  display:flex; gap:14px; flex-wrap:wrap;
+  opacity:0; animation:riseIn 0.7s ease-out 0.54s forwards;
+}
+@keyframes riseIn{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);} }
+
+.hero-card{
+  border-radius:26px;
+  background:linear-gradient(150deg, var(--xu-navy) 0%, var(--reds) 55%, var(--alloy) 105%);
+  padding:40px 28px 28px;
+  min-height:360px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;
+  position:relative;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,0.55);
+}
+.hero-card .initials{
+  font-family:'Anton',sans-serif; font-size:96px; color:#fff; line-height:1;
+  text-shadow:0 8px 30px rgba(0,0,0,0.35);
+}
+.hero-card .path{
+  font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.18em;
+  text-transform:uppercase; color:rgba(255,255,255,0.75); text-align:center; line-height:1.7;
+}
+.hero-card .locale{
+  margin-top:8px;
+  font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase;
+  color:#fff; background:rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.3);
+  padding:7px 16px; border-radius:999px; backdrop-filter:blur(4px);
+}
+
+/* photo variant — the image fills the card, badge floats over a scrim.
+   The card carries a 4:5 aspect ratio instead of the stock 360px min-height:
+   a 2:3 portrait forced into a near-square box crops to a tight face shot,
+   losing the suit and pushing the badge onto the subject's chin. */
+.hero-card.has-photo{
+  padding:0; overflow:hidden; align-items:stretch; justify-content:flex-end;
+  background:var(--ink-2);
+  aspect-ratio:4/5; min-height:0;
+}
+.hero-card.has-photo .headshot{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:center 18%; display:block;
+}
+.hero-card.has-photo::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height:45%;
+  background:linear-gradient(to top, rgba(13,14,18,0.82), transparent);
+  pointer-events:none;
+}
+.hero-card.has-photo .locale{
+  position:relative; z-index:2; margin:0 auto 26px;
+  background:rgba(13,14,18,0.55); border-color:rgba(255,255,255,0.35);
+}
+
+/* LinkedIn page hero card variant */
+.hero-card.in-card{background:linear-gradient(150deg, #0a2a4d 0%, var(--linkedin) 60%, #4593e0 105%);}
+.hero-card .in-mark{
+  font-family:'Anton',sans-serif; font-size:86px; color:#fff; line-height:1; text-transform:lowercase;
+  text-shadow:0 8px 30px rgba(0,0,0,0.35);
+}
+.hero-card .handle{
+  font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em;
+  color:rgba(255,255,255,0.86); text-align:center; line-height:1.7;
+}
+
+/* ---------- MARQUEE ---------- */
+.marquee{
+  overflow:hidden;
+  background:linear-gradient(90deg, var(--xu-navy), var(--reds), var(--alloy));
+  padding:13px 0;
+}
+.marquee-track{
+  display:flex; width:max-content; gap:16px;
+  animation:scrollMarquee 26s linear infinite;
+  font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:#fff;
+  white-space:nowrap;
+}
+.marquee-track span{opacity:0.92;}
+.marquee-track span.sep{opacity:0.55;}
+@keyframes scrollMarquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+/* ---------- SECTIONS ---------- */
+section{padding:64px 0; border-bottom:1px solid var(--line);}
+section:last-of-type{border-bottom:none;}
+
+.report p{font-size:17px; max-width:640px; color:#dcdad2; margin:0 0 16px;}
+.report p:last-child{margin-bottom:0;}
+
+/* ---------- COUNTERS / PROOF STRIP ---------- */
+.count-row{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+  background:var(--line); border:1px solid var(--line); margin:0 0 34px;
+}
+.count-row.three-up{grid-template-columns:repeat(3,1fr);}
+.count{background:var(--ink); padding:22px 20px; display:flex; flex-direction:column; gap:8px;}
+.count .num{
+  font-family:'Anton',sans-serif; font-size:clamp(30px,4.4vw,44px); line-height:1;
+  color:var(--accent); font-variant-numeric:tabular-nums;
+}
+.count .cap{font-size:13px; color:var(--chalk-dim); line-height:1.5;}
+@media (max-width:860px){ .count-row, .count-row.three-up{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:520px){ .count-row, .count-row.three-up{grid-template-columns:1fr;} }
+
+/* ---------- FILTER BAR ----------
+   Injected by JS. With JS off it never exists and every card shows. */
+.filter-bar{
+  display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:0 0 22px;
+}
+.filter-btn{
+  font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--chalk-dim);
+  background:transparent; border:1px solid var(--line-strong); border-radius:999px;
+  padding:8px 16px; cursor:pointer;
+  transition:color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.filter-btn:hover{color:var(--chalk); border-color:var(--chalk);}
+.filter-btn[aria-pressed="true"]{
+  background:var(--accent); border-color:var(--accent); color:#0d0e12; font-weight:600;
+}
+.filter-count{
+  font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--chalk-dim); margin-left:auto;
+}
+
+/* ---------- WORK CARDS ----------
+   Hairlines are drawn by each card's own 1px box-shadow, NOT by a background
+   showing through the grid gap. The background trick paints empty grid tracks
+   too, so the moment the filter hid a card you got a glowing empty cell.
+   Per-card shadows mean an absent card leaves absolutely nothing behind. */
+.work-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:transparent;}
+.work-card[hidden]{display:none;}
+.work-card{
+  display:flex; flex-direction:column; gap:12px; background:var(--ink); padding:28px 26px;
+  text-decoration:none; color:inherit; transition:background 0.15s ease;
+  position:relative; overflow:hidden;
+  box-shadow:0 0 0 1px var(--line);
+}
+.work-card:hover{background:var(--ink-2);}
+.work-card:hover .launch{color:var(--accent);}
+.work-card .kicker{
+  font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--accent);
+}
+.work-card .title{font-weight:700; font-size:17px; color:var(--chalk); line-height:1.3;}
+.work-card .blurb{font-size:14px; color:var(--chalk-dim); line-height:1.6; flex-grow:1;}
+.work-card .stack{
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;
+}
+.work-card .stack span{
+  font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--chalk-dim); border:1px solid var(--line-strong); border-radius:999px; padding:4px 10px;
+}
+.work-card .launch{
+  font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--wood); margin-top:2px;
+}
+@media (max-width:760px){ .work-grid{grid-template-columns:1fr;} }
+
+/* spotlight glow follows the cursor — coordinates set by JS */
+.work-card::after{
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:0;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),
+    color-mix(in srgb, var(--accent) 20%, transparent), transparent 72%);
+  opacity:0; transition:opacity 0.25s ease;
+}
+.work-card:hover::after{opacity:1;}
+.work-card > *{position:relative; z-index:1;}
+
+/* ---------- HIGHLIGHTS / NUMBERED LIST ---------- */
+.highlights{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:0;}
+.highlights li{display:flex; gap:20px; padding:18px 0; border-bottom:1px solid var(--line); font-size:15px; color:#dcdad2; line-height:1.65;}
+.highlights li:last-child{border-bottom:none;}
+.highlights .mark{font-family:'IBM Plex Mono',monospace; color:var(--accent); flex-shrink:0; width:24px;}
+.highlights strong{color:var(--chalk); font-weight:600;}
+
+/* ---------- TIMELINE ---------- */
+.timeline{list-style:none; margin:0; padding:0;}
+.timeline li{
+  display:grid; grid-template-columns:200px 1fr; gap:28px;
+  padding:26px 0; border-bottom:1px solid var(--line);
+}
+.timeline li:last-child{border-bottom:none;}
+.timeline .org{
+  font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--role-accent,var(--accent)); line-height:1.5;
+  border-left:2px solid var(--role-accent,var(--accent)); padding-left:14px;
+}
+.timeline .org .when{
+  display:block; margin-top:8px; color:var(--chalk-dim); letter-spacing:0.08em; font-size:11px;
+}
+.timeline .role h3{
+  font-family:'Anton',sans-serif; font-weight:400; text-transform:uppercase;
+  font-size:20px; line-height:1.15; margin:0 0 10px; color:var(--chalk);
+}
+.timeline .role p{margin:0 0 10px; font-size:15px; color:#dcdad2;}
+.timeline .role p:last-child{margin-bottom:0;}
+.timeline .role ul{margin:0; padding:0 0 0 18px; display:flex; flex-direction:column; gap:8px;}
+.timeline .role li{
+  display:list-item; padding:0; border:none; font-size:14.5px; color:#dcdad2; line-height:1.6;
+}
+.timeline .role li::marker{color:var(--role-accent,var(--accent));}
+.timeline .role .meta{
+  font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--chalk-dim); margin-top:12px;
+}
+@media (max-width:700px){
+  .timeline li{grid-template-columns:1fr; gap:14px;}
+}
+
+/* ---------- PHOTOS ---------- */
+.shot{margin:18px 0 0;}
+.shot img{
+  display:block; width:100%; height:auto; border-radius:14px;
+  border:1px solid var(--line-strong); background:var(--ink-2);
+}
+.shot figcaption{
+  font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--chalk-dim); margin-top:10px; line-height:1.6;
+}
+.shot-row{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:18px;}
+.shot-row .shot{margin:0;}
+.shot-row .shot img{aspect-ratio:4/3; object-fit:cover;}
+@media (max-width:640px){ .shot-row{grid-template-columns:1fr;} }
+
+/* a lone shot inside a timeline entry stays a card, not a billboard */
+.role .shot{max-width:440px;}
+.role .shot img{aspect-ratio:4/3; object-fit:cover;}
+.role .shot-row{max-width:none;}
+
+/* ---------- LIGHTBOX ----------
+   .lb-on goes on <html> from JS only. Without it the photos are ordinary
+   inline images — no zoom cursor promising a click that can't happen. */
+.lb-on .shot img{cursor:zoom-in;}
+.lightbox{
+  position:fixed; inset:0; z-index:1000;
+  background:rgba(8,9,12,0.94); backdrop-filter:blur(6px);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:16px; padding:56px 24px 32px;
+}
+.lightbox img{
+  max-width:min(1100px,94vw); max-height:82vh; width:auto; height:auto;
+  border-radius:14px; box-shadow:0 30px 80px -20px rgba(0,0,0,0.9);
+}
+.lightbox .cap{
+  font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--chalk-dim); text-align:center; max-width:640px;
+}
+.lightbox-close{
+  position:absolute; top:18px; right:20px;
+  width:42px; height:42px; border-radius:999px; cursor:pointer;
+  background:rgba(245,243,236,0.08); border:1px solid var(--line-strong);
+  color:var(--chalk); font-size:20px; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+}
+.lightbox-close:hover{background:rgba(245,243,236,0.16); border-color:var(--chalk);}
+
+/* ---------- BOX SCORE GRID ---------- */
+.box-score{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+.stat-card{background:var(--ink); padding:26px 24px;}
+.stat-card .label{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:10px;}
+.stat-card .value{font-size:16px; color:var(--chalk); line-height:1.5;}
+@media (max-width:640px){ .box-score{grid-template-columns:1fr;} }
+
+/* ---------- TAGS ---------- */
+.tag-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:4px;}
+.tag{
+  font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--chalk-dim);
+  border:1px solid var(--line-strong); border-radius:999px; padding:7px 15px;
+}
+.tag-group{margin-bottom:26px;}
+.tag-group:last-child{margin-bottom:0;}
+.tag-group h3{
+  font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--accent); margin:0 0 12px; font-weight:500;
+}
+
+/* ---------- CONNECT PANEL ---------- */
+.connect{
+  border-radius:22px; padding:38px 32px;
+  background:color-mix(in srgb, var(--accent) 14%, var(--ink-2));
+  border:1px solid color-mix(in srgb, var(--accent) 42%, transparent);
+}
+.connect h2{
+  font-family:'Anton',sans-serif; font-weight:400; text-transform:uppercase;
+  font-size:clamp(26px,3.6vw,38px); line-height:1.05; margin:0 0 14px; color:var(--chalk);
+}
+.connect p{margin:0 0 24px; font-size:16px; color:#dcdad2; max-width:540px;}
+.connect .cta-row{display:flex; flex-wrap:wrap; gap:14px;}
+
+/* ---------- CONTACT ---------- */
+.contact-row{display:flex; flex-wrap:wrap; gap:14px; margin-top:22px;}
+
+/* ---------- RESUME PAGE ---------- */
+.resume-block{margin-bottom:38px;}
+.resume-block:last-child{margin-bottom:0;}
+.resume-head{
+  display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+  flex-wrap:wrap; margin-bottom:6px;
+}
+.resume-head h3{
+  font-family:'Anton',sans-serif; font-weight:400; text-transform:uppercase;
+  font-size:19px; line-height:1.2; margin:0; color:var(--chalk);
+}
+.resume-head .when{
+  font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--chalk-dim); white-space:nowrap;
+}
+.resume-sub{
+  font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--accent); margin:0 0 12px;
+}
+.resume-block ul{margin:0; padding:0 0 0 18px; display:flex; flex-direction:column; gap:9px;}
+.resume-block ul li{font-size:15px; color:#dcdad2; line-height:1.6;}
+.resume-block ul li::marker{color:var(--accent);}
+
+/* ---------- SCROLL REVEAL ----------
+   .reveal-on is added to <html> by JS only when motion is allowed,
+   so no-JS and reduced-motion visitors always see fully visible content. */
+.reveal-on main section{
+  opacity:0; transform:translateY(24px);
+  transition:opacity 0.7s cubic-bezier(0.2,0.7,0.3,1), transform 0.7s cubic-bezier(0.2,0.7,0.3,1);
+}
+.reveal-on main section.in{opacity:1; transform:none;}
+
+.reveal-on main section :is(.work-grid,.highlights,.count-row,.timeline) > *{
+  opacity:0; transform:translateY(16px);
+  transition:opacity 0.55s ease-out, transform 0.55s ease-out;
+}
+.reveal-on main section.in :is(.work-grid,.highlights,.count-row,.timeline) > *{
+  opacity:1; transform:none;
+}
+/* box score fades only — its 1px hairlines are the container background,
+   so translating the cards would flash the grid lines mid-animation */
+.reveal-on main section .box-score > *{opacity:0; transition:opacity 0.5s ease-out;}
+.reveal-on main section.in .box-score > *{opacity:1;}
+
+.reveal-on main section.in :is(.work-grid,.highlights,.count-row,.timeline,.box-score) > *:nth-child(2){transition-delay:0.07s;}
+.reveal-on main section.in :is(.work-grid,.highlights,.count-row,.timeline,.box-score) > *:nth-child(3){transition-delay:0.14s;}
+.reveal-on main section.in :is(.work-grid,.highlights,.count-row,.timeline,.box-score) > *:nth-child(4){transition-delay:0.21s;}
+.reveal-on main section.in :is(.work-grid,.highlights,.count-row,.timeline,.box-score) > *:nth-child(5){transition-delay:0.28s;}
+.reveal-on main section.in :is(.work-grid,.highlights,.count-row,.timeline,.box-score) > *:nth-child(6){transition-delay:0.35s;}
+
+/* ---------- FILM GRAIN ---------- */
+.grain{
+  position:fixed; inset:0; z-index:999; pointer-events:none;
+  opacity:0.045; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size:200px 200px;
+}
+
+footer{
+  padding:28px 0 40px; font-family:'IBM Plex Mono',monospace; font-size:11px;
+  letter-spacing:0.08em; text-transform:uppercase; color:var(--chalk-dim);
+}
+footer .wrap{display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap;}
+footer a{color:var(--chalk-dim); text-decoration:none;}
+footer a:hover{color:var(--chalk);}
