@@ -40,21 +40,40 @@ VIEWPORTS = [
 failures = []
 
 with sync_playwright() as p:
-    browser = p.chromium.launch(executable_path=CHROME)
     for page_name in PAGES:
         print("\n" + page_name)
+        # A fresh browser per file, and one page resized between viewports.
+        # Opening 21 separate pages in one browser crashed the renderer partway
+        # through — each page holds several full-resolution photos and they are
+        # not released fast enough. Restarting per file keeps memory flat.
+        browser = p.chromium.launch(executable_path=CHROME,
+                                    args=["--disable-dev-shm-usage", "--disable-gpu"])
+        pg = browser.new_page(viewport={"width": VIEWPORTS[0][0], "height": VIEWPORTS[0][1]})
         for vw, vh, label in VIEWPORTS:
-            pg = browser.new_page(viewport={"width": vw, "height": vh})
-            pg.goto(BASE + page_name, wait_until="networkidle")
+            pg.set_viewport_size({"width": vw, "height": vh})
+            pg.goto(BASE + page_name, wait_until="domcontentloaded")
 
-            # walk the page the way a person would, so every observer gets a chance
-            height = pg.evaluate("() => document.body.scrollHeight")
-            y = 0
-            while y < height:
-                y += int(vh * 0.6)
-                pg.evaluate(f"window.scrollTo(0,{y})")
-                pg.wait_for_timeout(70)
-            pg.wait_for_timeout(700)
+            # Walk the page so every observer gets a chance, inside ONE evaluate
+            # (a round trip per step crashed the renderer).
+            #
+            # scroll-behavior:smooth in the site CSS makes stepped scrollTo calls
+            # interrupt each other's animations, so the page never actually renders
+            # at the intermediate positions and sections get skipped. The test then
+            # reports content as hidden that a real visitor sees fine. Force
+            # instant scrolling for the duration of the walk.
+            pg.evaluate("""async () => {
+                const html = document.documentElement;
+                const prev = html.style.scrollBehavior;
+                html.style.scrollBehavior = 'auto';
+                const step = Math.round(innerHeight * 0.8);
+                for (let y = 0; y <= document.body.scrollHeight; y += step) {
+                    window.scrollTo(0, y);
+                    await new Promise(r => requestAnimationFrame(() => setTimeout(r, 45)));
+                }
+                await new Promise(r => setTimeout(r, 250));
+                html.style.scrollBehavior = prev;
+            }""")
+            pg.wait_for_timeout(400)
 
             hidden = pg.evaluate("""() => [...document.querySelectorAll('main section')]
                 .filter(s => parseFloat(getComputedStyle(s).opacity) < 0.99)
@@ -67,8 +86,8 @@ with sync_playwright() as p:
                 failures.append(f"{page_name} @ {vw}x{vh}: {hidden}")
             print(f"  {'PASS' if ok else 'FAIL'}  {label:22} {vw}x{vh}"
                   f"  tallest section {tallest}px  hidden: {hidden or 'none'}")
-            pg.close()
-    browser.close()
+        pg.close()
+        browser.close()
 
 print("\n" + "=" * 52)
 if failures:

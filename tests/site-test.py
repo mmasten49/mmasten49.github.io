@@ -37,7 +37,7 @@ with sync_playwright() as p:
           pg.locator(".filter-count").inner_text())
 
     pg.locator('.filter-btn[data-key="own"]').click()
-    visible = pg.locator(".work-card:visible").count()
+    visible = pg.locator(".work-grid .work-card:visible").count()
     check("filtering to 'My Own' leaves 1 card", visible == 1, visible)
     check("status says 1 project", "1 project" in pg.locator(".filter-count").inner_text().lower(),
           pg.locator(".filter-count").inner_text())
@@ -52,8 +52,8 @@ with sync_playwright() as p:
     pg.locator("#work").screenshot(path=OUT + "shot_filtered.png")
 
     pg.locator('.filter-btn[data-key="all"]').click()
-    check("back to all shows 6", pg.locator(".work-card:visible").count() == 6,
-          pg.locator(".work-card:visible").count())
+    check("back to all shows 6", pg.locator(".work-grid .work-card:visible").count() == 6,
+          pg.locator(".work-grid .work-card:visible").count())
 
     print("\n[lightbox]")
     check("lb-on set on <html>", "lb-on" in pg.locator("html").get_attribute("class"))
@@ -100,8 +100,8 @@ with sync_playwright() as p:
     ctx = b.new_context(java_script_enabled=False, viewport={"width": 1280, "height": 900})
     nj = ctx.new_page()
     nj.goto(BASE + "index.html", wait_until="load")
-    check("all 6 work cards visible", nj.locator(".work-card:visible").count() == 6,
-          nj.locator(".work-card:visible").count())
+    check("all 6 tool cards visible", nj.locator(".work-grid .work-card:visible").count() == 6,
+          nj.locator(".work-grid .work-card:visible").count())
     check("no filter bar offered", nj.locator(".filter-bar").count() == 0)
     check("no zoom cursor promised", "lb-on" not in (nj.locator("html").get_attribute("class") or ""))
     sections = nj.locator("main section:visible").count()
